@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:food_social_app/recipes_screen.dart';
+import 'package:food_social_app/tobuy_screen.dart';
 
 import 'components/theme_button.dart';
+import 'explore_screen.dart';
 
 class Home extends StatefulWidget {
   Home({super.key, required this.appTitle, required this.changeThemeMode});
@@ -12,6 +15,18 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  int currentScreen =0;
+  List<Widget> screens = [
+    ExploreScreen(),
+    RecipesScreen(),
+    TobuyScreen()
+  ];
+  void changeScreen(int index){
+    setState(() {
+      currentScreen = index;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     const appTitle = 'Food Social App'; // set the app title as a constant
@@ -26,6 +41,10 @@ class _HomeState extends State<Home> {
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.green,
         unselectedItemColor: Colors.black,
+        onTap: (value) {
+          changeScreen(value);
+        },
+          currentIndex: currentScreen,
         items: [
           BottomNavigationBarItem(
               icon: Icon(Icons.explore),
@@ -33,23 +52,15 @@ class _HomeState extends State<Home> {
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.card_giftcard),
-              label: 'EXPLORE'
+              label: 'RECIPES'
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.shopping_cart),
-              label: 'EXPLORE'
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.card_giftcard),
-              label: 'GIFTCARD'
+              label: 'to Buy'
           ),
         ]
       ),
-      body: Center(
-        child: Container(
-          child: Text('Hello World'),
-        ),
-      ),
+      body:  screens[currentScreen]
     );
 
   }
