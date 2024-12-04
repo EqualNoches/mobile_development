@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quizz_app/src/controllers/quizz_controller.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class QuizzPage extends StatefulWidget {
   const QuizzPage({
@@ -11,21 +12,62 @@ class QuizzPage extends StatefulWidget {
 }
 
 class _QuizzPageState extends State<QuizzPage> {
-
   final quizController = QuizzController();
-  void checkAnswer(bool userAnswer){
+  int _correctAnswer = 0;
+
+  void checkAnswer(bool userAnswer) {
     setState(() {
       bool correctAnswer = quizController.getCorrectAnswer();
-      if(userAnswer == correctAnswer){
-        score.add(Icon(Icons.check, color: Colors.green,));
-      }
-      else{
-        score.add(Icon(Icons.close, color: Colors.red,));
+      if (userAnswer == correctAnswer) {
+        score.add(Icon(
+          Icons.check,
+          color: Colors.green,
+        ));
+        _correctAnswer++;
+      } else {
+        score.add(Icon(
+          Icons.close,
+          color: Colors.red,
+        ));
       }
       quizController.nextQuestion();
-
     });
+    if (quizController.quizFinished()) {
+      print("Quiz finished");
+      FinishedQuiz();
+      score = [];
+      _correctAnswer = 0;
+      return;
+    }
+  }
 
+  Future<bool?> FinishedQuiz() {
+    if (quizController.getTotalNumber() / 2 < _correctAnswer) {
+      return Alert(
+          context: context,
+          type: AlertType.success,
+          title: "Quiz Finished",
+          desc:
+              "Su puntuación ha sido de: \n ${_correctAnswer} / ${quizController.getTotalNumber()}\n Ha pasado la prueba",
+          buttons: [
+            DialogButton(
+              child: Text("LISTO!", style: TextStyle(
+                color: Colors.white,
+              ),),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            )
+          ]).show();
+    } else {
+      return Alert(
+        context: context,
+        type: AlertType.error,
+        title: "Quiz Finished",
+        desc:
+            "Su puntuación ha sido de: \n ${_correctAnswer} / ${quizController.getTotalNumber()} \n Se ha quemado",
+      ).show();
+    }
   }
 
   List<Icon> score = [];
@@ -44,14 +86,14 @@ class _QuizzPageState extends State<QuizzPage> {
               Expanded(
                 flex: 5,
                 child: Center(
-                    child: Text(quizController.getQuestionText(),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                      ),
-                    )
-                ),
+                    child: Text(
+                  quizController.getQuestionText(),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                )),
               ),
               Container(
                 height: 60,
@@ -85,7 +127,7 @@ class _QuizzPageState extends State<QuizzPage> {
                         borderRadius: BorderRadius.all(Radius.circular(8))),
                     onPressed: () {
                       checkAnswer(false);
-                      },
+                    },
                     child: Text('False',
                         style: TextStyle(
                           color: Colors.white,
@@ -94,13 +136,13 @@ class _QuizzPageState extends State<QuizzPage> {
                   ),
                 ),
               ),
-              Row(
+              Wrap(
+                runSpacing: 4.8,
                 children: score,
               ),
               SizedBox(
                 height: 30,
               ),
-
             ],
           ),
         ),
