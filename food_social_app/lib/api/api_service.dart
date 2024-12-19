@@ -1,78 +1,85 @@
 import 'dart:convert';
-
 import 'package:flutter/services.dart';
 import 'package:food_social_app/models/explore_data.dart';
-import 'package:food_social_app/models/post.dart';
-
-import '../models/explore_recipes.dart';
-import '../models/simple_recipes.dart';
+import 'package:food_social_app/models/explore_recipes.dart';
+import 'package:food_social_app/models/simple_recipes.dart';
+import '../models/post.dart';
 
 class ApiService {
   Future<String> _loadAssets(String path) async {
     return rootBundle.loadString(path);
   }
 
-  Future<List<SimpleRecipes>> getRecipes() async {
-    await Future.delayed(Duration(milliseconds: 1000));
+  Future<List<SimpleRecipe>> getRecipes() async {
+    await Future.delayed(const Duration(milliseconds: 1000));
 
-    final data = await _loadAssets('assets/sample_data/simple_recipes.json');
+    //Se trae el json desde nuestro archivo
+    final data = await _loadAssets('assets/sample_data/sample_recipes.json');
 
+    //Se convierte el json a un mapa
     final Map<String, dynamic> json = jsonDecode(data);
 
+    // Se navega el mapa y se convierte a objetos tipo SimpleRecipe
     if (json['recipes'] != null) {
-      final recipes = <SimpleRecipes>[];
+      final recipes = <SimpleRecipe>[];
       json['recipes'].forEach((value) {
-        recipes.add(SimpleRecipes.fromJson(value));
+        recipes.add(SimpleRecipe.fromJson(value));
       });
-      return recipes;
-    } else {
-      return [];
+
+      print(recipes);
+      return recipes; //Devolvemos la lista de objetos SimpleRecipes
     }
+
+    return []; //Si tira error retorna una lista vacía
   }
 
   Future<List<Post>> _getFriendPosts() async {
-    await Future.delayed(Duration(milliseconds: 1000));
-
-    await Future.delayed(Duration(milliseconds: 1000));
+    await Future.delayed(const Duration(milliseconds: 1000));
 
     final data =
         await _loadAssets('assets/sample_data/sample_friends_feed.json');
+
     final Map<String, dynamic> json = jsonDecode(data);
-    final List<Post> Posts = [];
 
     if (json['feed'] != null) {
-      json['feed'].forEach((element) {
-        Posts.add(Post.fromJson(element));
+      final posts = <Post>[];
+      json['feed'].forEach((value) {
+        posts.add(Post.fromJson(value));
       });
 
-      return Posts;
+      return posts;
     }
 
     return [];
   }
 
-  Future<List<ExploreRecipes>> _getTodayRecipes() async {
-    await Future.delayed(Duration(milliseconds: 1000));
+  Future<List<ExploreRecipe>> _getTodayRecipes() async {
+    await Future.delayed(const Duration(milliseconds: 1000));
 
     final data =
-        await _loadAssets('assets/sample_data/sample_friends_feed.json');
+        await _loadAssets('assets/sample_data/sample_explore_recipes.json');
+
     final Map<String, dynamic> json = jsonDecode(data);
+
     if (json['recipes'] != null) {
-      final recipes = <ExploreRecipes>[];
-      json['recipes'].forEach((element) {
-        recipes.add((ExploreRecipes.fromJson(element)));
+      final exploreRecipes = <ExploreRecipe>[];
+
+      json['recipes'].forEach((value) {
+        exploreRecipes.add(ExploreRecipe.fromJson(value));
       });
 
-      return recipes;
+      return exploreRecipes;
     }
 
     return [];
   }
 
-  Future<ExploreData> _getExploreData() async {
+  Future<ExploreData> getExploreData() async {
     final todayRecipes = await _getTodayRecipes();
     final friendPosts = await _getFriendPosts();
 
-    return ExploreData(friendPosts, todayRecipes);
+    print("Picha mal ride");
+
+    return ExploreData(todayRecipes, friendPosts);
   }
 }

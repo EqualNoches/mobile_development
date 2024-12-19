@@ -4,9 +4,9 @@ import 'package:food_social_app/food_theme.dart';
 import '../models/explore_recipes.dart';
 
 class Card1 extends StatelessWidget {
-  Card1({super.key, required this.recipes});
+  Card1({super.key, required this.recipe});
 
-  final ExploreRecipes recipes;
+  final ExploreRecipe recipe;
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +21,11 @@ class Card1 extends StatelessWidget {
             borderRadius: BorderRadius.circular(10)),
         child: Stack(
           children: [
-            Text(recipes.subtitle, style: FoodTheme.darkTextTheme.bodyLarge),
+            Text(recipe.subtitle, style: FoodTheme.darkTextTheme.bodyLarge),
             Positioned(
               top: 20,
               child: Text(
-                recipes.title,
+                recipe.title,
                 style: FoodTheme.darkTextTheme.titleLarge,
               ),
             ),
@@ -33,7 +33,7 @@ class Card1 extends StatelessWidget {
               bottom: 30,
               right: 0,
               child: Text(
-                recipes.description,
+                recipe.description,
                 style: FoodTheme.darkTextTheme.bodyLarge,
               ),
             ),
@@ -41,7 +41,7 @@ class Card1 extends StatelessWidget {
                 bottom: 10,
                 right: 0,
                 child: Text(
-                  recipes.authorName,
+                  recipe.authorName,
                   style: FoodTheme.darkTextTheme.bodyLarge,
                 )),
           ],

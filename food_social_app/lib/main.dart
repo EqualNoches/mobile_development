@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:food_social_app/components/theme_button.dart';
 import 'package:food_social_app/food_theme.dart';
 import 'package:food_social_app/home.dart';
+import 'package:food_social_app/models/grocery_manager.dart';
+import 'package:food_social_app/models/tab_manager.dart';
+import 'package:provider/provider.dart';
 
 void main() => runApp(FoodSocialApp());
 
@@ -13,12 +15,11 @@ class FoodSocialApp extends StatefulWidget {
 class _FoodSocialAppState extends State<FoodSocialApp> {
   ThemeData theme = FoodTheme.light();
 
-  void changeThemeMode(bool isLightMode){
+  void changeThemeMode(bool isLightMode) {
     setState(() {
-      if(isLightMode){
+      if (isLightMode) {
         theme = FoodTheme.light();
-      }
-      else{
+      } else {
         theme = FoodTheme.dark();
       }
     });
@@ -31,7 +32,14 @@ class _FoodSocialAppState extends State<FoodSocialApp> {
       debugShowCheckedModeBanner: false,
       theme: theme,
       title: appTitle,
-      home: Home(changeThemeMode: changeThemeMode, appTitle: appTitle),
+      home: MultiProvider(providers: [
+        ChangeNotifierProvider(
+          create: (context) => TabManager(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => GroceryManager(),
+        )
+      ], child: Home(changeThemeMode: changeThemeMode, appTitle: appTitle)),
     );
   }
 }

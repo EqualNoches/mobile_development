@@ -4,9 +4,9 @@ import 'package:food_social_app/food_theme.dart';
 import 'package:food_social_app/models/explore_recipes.dart';
 
 class Card2 extends StatelessWidget {
-  const Card2({super.key, required this.recipes});
+  const Card2({super.key, required this.recipe});
 
-  final ExploreRecipes recipes;
+  final ExploreRecipe recipe;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -20,8 +20,8 @@ class Card2 extends StatelessWidget {
         child: Column(
           children: [
             AuthorCard(
-              authorName: recipes.authorName,
-              title: recipes.title,
+              authorName: recipe.authorName,
+              title: recipe.title,
               imageProvider: AssetImage("assets/profile_pics/person_katz.jpeg"),
             ),
             Expanded(
@@ -31,7 +31,7 @@ class Card2 extends StatelessWidget {
                       bottom: 16,
                       right: 16,
                       child: Text(
-                        recipes.message,
+                        recipe.message,
                         style: FoodTheme.lightTextTheme.displayLarge,
                       )),
                   Positioned(

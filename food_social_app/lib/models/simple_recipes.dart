@@ -1,4 +1,4 @@
-class SimpleRecipes {
+class SimpleRecipe {
   final String id;
   final String dishImage;
   final String title;
@@ -6,7 +6,7 @@ class SimpleRecipes {
   final String source;
   final List<String> information;
 
-  SimpleRecipes({
+  SimpleRecipe({
     required this.id,
     required this.dishImage,
     required this.title,
@@ -15,8 +15,7 @@ class SimpleRecipes {
     required this.information,
   });
 
-  factory SimpleRecipes.fromJson(Map<String, dynamic> json) =>
-      SimpleRecipes(
+  factory SimpleRecipe.fromJson(Map<String, dynamic> json) => SimpleRecipe(
         id: json["id"],
         dishImage: json["dishImage"],
         title: json["title"],
@@ -25,8 +24,7 @@ class SimpleRecipes {
         information: List<String>.from(json["information"].map((x) => x)),
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "dishImage": dishImage,
         "title": title,

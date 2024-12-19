@@ -1,15 +1,12 @@
-import 'package:quizzler_v2/models/quiz_question.dart';
+import 'package:navigation_proyect/models/quiz_question.dart';
 
- List<QuizQuestion> questions = [
-  QuizQuestion(
-    'What are the main building blocks of Flutter UIs?',
-    [
-      'Widgets',
-      'Components',
-      'Blocks',
-      'Functions',
-    ],
-  ),
+const questions = [
+  QuizQuestion('What are the main building blocks of Flutter UIs?', [
+    'Widgets',
+    'Components',
+    'Blocks',
+    'Functions',
+  ]),
   QuizQuestion('How are Flutter UIs built?', [
     'By combining widgets in code',
     'By combining widgets in a visual editor',

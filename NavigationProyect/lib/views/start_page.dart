@@ -10,7 +10,7 @@ class StartPage extends StatelessWidget {
         child: Scaffold(
       backgroundColor: Colors.lightGreen,
       body: Padding(
-        padding: EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(15.0),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -19,7 +19,7 @@ class StartPage extends StatelessWidget {
               Container(
                 width: 250,
                 height: 250,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                   image: AssetImage(
                     'assets/quiz-logo.png',
@@ -28,37 +28,44 @@ class StartPage extends StatelessWidget {
                 )),
                 alignment: Alignment.center,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Container(
                 child: Text(
                   "Learn Flutter the fun way",
-                  style: TextStyle(color: Colors.white.withOpacity(0.8),
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.8),
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Container(
-                child:
-                Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Center(
-                      child: MaterialButton(onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context){
-                          return  Quiz();
-                        },));
-                      },
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                      child: MaterialButton(
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (context) {
+                              return const Quiz();
+                            },
+                          ));
+                        },
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30)),
                         color: Colors.white,
-                        child:
-                        Row(
+                        child: const Row(
                           children: [
-                            Icon(Icons.arrow_downward_rounded),
-                            Text("Start Quizz", textAlign: TextAlign.center,)
+                            Icon(Icons.arrow_right_alt),
+                            Text(
+                              "Start Quizz",
+                              textAlign: TextAlign.center,
+                            ),
+                            Opacity(opacity: 0.9)
                           ],
                         ),
                       ),
@@ -66,11 +73,11 @@ class StartPage extends StatelessWidget {
                   ],
                 ),
               )
-
             ],
           ),
         ),
       ),
-    ));
+    )
+    );
   }
 }

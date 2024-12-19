@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:food_social_app/food_theme.dart';
-import 'package:food_social_app/main.dart';
-
 import '../models/explore_recipes.dart';
 
 class Card3 extends StatelessWidget {
-  const Card3({super.key, required this.recipes});
+  const Card3({super.key, required this.recipe});
 
-  final ExploreRecipes recipes;
+  final ExploreRecipe recipe;
 
   List<Widget> createTagChips() {
     final chips = <Widget>[];
-    recipes.tags.take(6).forEach((element) {
+    recipe.tags.take(6).forEach((element) {
       final chip = Chip(
           label: Text(element, style: FoodTheme.darkTextTheme.bodyLarge),
           backgroundColor: Colors.black.withOpacity(0.7));
