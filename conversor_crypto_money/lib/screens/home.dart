@@ -1,4 +1,4 @@
-//TODO: CoinAPI
+//TODO: CoinAPIq
 
 import 'package:conversor_crypto_money/data.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +11,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String selectedCurrency = "DOP";
+  String? selectedCurrency = "DOP";
 
   DropdownButton<String> getAndroidDropdownButton() {
     List<DropdownMenuItem<String>> dropDownItems = [];
@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 alignment: Alignment.center,
                 padding: EdgeInsets.only(bottom: 30),
                 color: Colors.lightBlue,
-                child: null,
+                child: getAndroidDropdownButton(),
               )
             ]));
   }
